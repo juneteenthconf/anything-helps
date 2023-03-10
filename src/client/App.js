@@ -1,19 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, FlatList,Text, View } from 'react-native';
-import { faker } from '@faker-js/faker';
-
-const randomName = faker.name.fullName(); // Rowan Nikolaus
-const randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
+import { useEffect, useState } from 'react';
 
 export default function App() {
-  let volunteerOpportunities= [...new Array(5)].map(i=>{
-    return {
-      title: faker.lorem.words(5),
-      provider: faker.company.name(),
-      location: faker.address.city(),
-      description: faker.lorem.words(20)
-    }
-  }); 
+
+  const [volunteerOpportunities, setVolunteerOpportunities] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/opportunities')
+      .then((response) => response.json())
+      .then((json) => setVolunteerOpportunities(json))
+      .catch((error) => console.log(error))
+  }, []);
+
   return (
     <View style={styles.container}>
       <FlatList
