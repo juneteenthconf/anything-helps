@@ -7,7 +7,7 @@ export default function App() {
   const [volunteerOpportunities, setVolunteerOpportunities] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/opportunities')
+    fetch('https://anythinghelpsapi.azurewebsites.net/opportunities')
       .then((response) => response.json())
       .then((json) => setVolunteerOpportunities(json))
       .catch((error) => console.log(error))
