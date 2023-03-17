@@ -8,6 +8,7 @@ export default function App() {
 
   useEffect(() => {
     fetch('https://anythinghelpsapi.azurewebsites.net/opportunities')
+    //fetch('http://localhost:3000/opportunities')
       .then((response) => response.json())
       .then((json) => setVolunteerOpportunities(json))
       .catch((error) => console.log(error))
