@@ -1,13 +1,14 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 const router = express.Router();
 
-const credentials = './mongo-cert.pem';
-const client = new MongoClient('mongodb+srv://cluster0.2o9gb9c.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority', {
-  sslKey: credentials,
-  sslCert: credentials,
-  serverApi: ServerApiVersion.v1
-});
+
+
+dotenv.config();
+const uri = process.env.mongodb_conn;
+console.log(uri);
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
   try {
