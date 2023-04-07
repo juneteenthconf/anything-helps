@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, FlatList,Text, View } from 'react-native';
+import * as eva from '@eva-design/eva';
+import { StyleSheet, FlatList, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
+import {default as theme} from './custom-theme.json';
+import { ApplicationProvider, List, ListItem, Button} from '@ui-kitten/components';
 
 export default function App() {
 
@@ -15,20 +18,28 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <FlatList
-      renderItem={
-          ({ item }) =>
-            <View style={styles.listItem}>
-              <Text style={styles.header}>{item.title}</Text>
-              <Text style={styles.item}>{item.provider}</Text>
-              <Text style={styles.item}>{item.location}</Text>
-              <Text style={styles.item}>{item.description}</Text>
-            </View>
-    } 
-      data={volunteerOpportunities}></FlatList>
-      <StatusBar style="auto" />
-    </View>
+    <ApplicationProvider {...eva} theme={{...eva.dark, ...theme}}>
+      <View style={styles.container}>
+      <Button>HOME</Button>
+        <List
+          renderItem={
+            ({ item }) =>
+            <ListItem 
+              title={`${item.title}`}
+              description={`${item.description}`}/>
+             /* 
+             <View >
+                <Text style={styles.header}>{item.title}</Text>
+                <Text style={styles.item}>{item.provider}</Text>
+                <Text style={styles.item}>{item.location}</Text>
+                <Text style={styles.item}>{item.description}</Text>
+              </View>
+              */
+          }
+          data={volunteerOpportunities} />
+        <StatusBar style="auto" />
+      </View>
+    </ApplicationProvider>
   );
 }
 
@@ -38,7 +49,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     backgroundColor: '#999',
     alignItems: 'left',
-    height:44,
+    height: 44,
   },
   container: {
     flex: 1,
@@ -46,13 +57,13 @@ const styles = StyleSheet.create({
     alignItems: 'left',
   },
   header: {
-    padding:10,
-    fontSize:24,
-    fontWeight:"bold",
-    height:44,
+    padding: 10,
+    fontSize: 24,
+    fontWeight: "bold",
+    height: 44,
   },
   item: {
-    fontSize:18,
+    fontSize: 18,
     margin: 5,
   }
 });
